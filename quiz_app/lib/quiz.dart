@@ -6,6 +6,7 @@ import 'package:quiz_app/start_screen.dart';
 // creating state
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
+
   @override
   State<Quiz> createState() {
     return _QuizState();

@@ -41,7 +41,7 @@ class StyledText extends StatelessWidget {
 
 ```
 
-### Creating **Stateful** Widget
+### Creating Stateful Widget
 
 > [Link](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html?gclid=Cj0KCQiAhc-sBhCEARIsAOVwHuRcjhtSUFqDleKMnTRk1lrXOSUrqxuCIPC0PxzgTztW2R5lFsXGORoaAqBkEALw_wcB&gclsrc=aw.ds)
 
@@ -176,7 +176,7 @@ class StyledText extends StatelessWidget {
     }
 ```
 
-`2.` Child element.
+`2.` **_Child element_**.
 
 ```dart
 
