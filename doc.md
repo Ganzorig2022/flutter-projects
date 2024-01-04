@@ -193,3 +193,294 @@ class QuestionsScreen extends StatefulWidget {
   }
 }
 ```
+
+================================================================
+
+### TextField (Input element)
+
+```dart
+  final _titleController = TextEditingController();
+
+// creating Widget
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
+      child: Column(
+        children: [
+          TextField(
+            controller: _titleController, // method2. onChangeHandler
+            maxLength: 50,
+            keyboardType: TextInputType.text,
+            decoration: const InputDecoration(
+              label: Text('Title'),
+            ),
+          ),
+```
+
+### Showing Modal
+
+```dart
+void _openAddExpenseOverlay() {
+    showModalBottomSheet(
+        isScrollControlled: true, // make a modal fullscreen
+        context: context,
+        builder: (ctx) {
+          return NewExpense(
+              onAddExpense: _addExpense); // sending function as props
+        });
+  }
+```
+
+### Showing Notification Bar at the Bottom
+
+```dart
+ // Show notification bar on the bottom of the screen
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 3),
+        content: const Text('Expense deleted.'),
+        action: SnackBarAction(
+            label: 'Undo',
+            onPressed: () {
+              setState(() {
+                _registeredExpenses.insert(expenseIndex,
+                    expense); // add item again to the list by using the index
+              });
+            }),
+      ),
+    );
+```
+
+### Showing Dialog (small notification window)
+
+````dart
+ showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+            title: const Text('Invalid input'),
+            content: const Text(
+                'Please make sure a valid title, date, amount and category was entered.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(ctx); //Return to the first route
+                },
+                child: const Text('Okay'),
+              )
+            ]),
+      );
+      ```
+````
+
+### Theming (Theme)
+
+> Creating default theme for each element such as AppBar
+
+```dart
+import 'package:expense_tracker_app/widgets/expenses.dart';
+import 'package:flutter/material.dart';
+
+var kColorScheme =
+    ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 96, 59, 181));
+
+void main() {
+  runApp(
+    MaterialApp(
+      theme: ThemeData(
+        colorScheme: kColorScheme,
+        appBarTheme: AppBarTheme(
+            backgroundColor: kColorScheme.onPrimaryContainer,
+            foregroundColor: kColorScheme.primaryContainer),
+        cardTheme: CardTheme(
+          color: kColorScheme.secondaryContainer,
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: kColorScheme.primaryContainer),
+        ),
+        textTheme: TextTheme(
+          titleLarge: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: kColorScheme.onSecondaryContainer,
+              fontSize: 16),
+        ),
+      ),
+      home: const Expenses(),
+    ),
+  );
+}
+
+```
+
+### Using theme into the Widgets
+
+```dart
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              expense.title,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+```
+
+### Looping through list
+
+`1`. Method 1. Using for in loop
+
+```dart
+child: Column(
+        children: [
+          Expanded(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                for (final bucket in buckets) // alternative to map()
+                  ChartBar(
+                    fill: bucket.totalExpenses == 0
+                        ? 0
+                        : bucket.totalExpenses / maxTotalExpense,
+                  )
+              ],
+            ),
+          ),
+```
+
+`2.` Method 2. Using map() method.
+
+```dart
+ const SizedBox(height: 12),
+          Row(
+            children: buckets
+                .map(
+                  (bucket) => Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Icon(
+                        categoryIcons[bucket.category],
+                        color: isDarkMode
+                            ? Theme.of(context).colorScheme.secondary
+                            : Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(0.7),
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          )
+```
+
+`3`. Method 3. Using ListView.builder() constructor.
+
+```dart
+@override
+  Widget build(BuildContext context) {
+    // List elements
+    return ListView.builder(
+      itemCount: expenses.length,
+      //Dismissible make the list item 'Swipable'!!!
+      itemBuilder: (ctx, index) => Dismissible(
+        key: ValueKey(expenses[index]),
+        background: Container(
+          color: Theme.of(context).colorScheme.error.withOpacity(0.3),
+          margin: EdgeInsets.symmetric(
+              horizontal: Theme.of(context).cardTheme.margin!.horizontal),
+        ),
+        // remove the item
+        onDismissed: (direction) {
+          onRemoveExpense(expenses[index]);
+        },
+        child: ExpenseItem(expenses[index]),
+      ),
+    );
+  }
+```
+
+### Use Safe Area
+
+> Add some space from top for preventing camera, phone notification area.
+
+```dart
+ void _openAddExpenseOverlay() {
+    showModalBottomSheet(
+        useSafeArea: true, // use safe area
+        isScrollControlled: true, // make a modal fullscreen
+        context: context,
+        builder: (ctx) {
+          return NewExpense(
+              onAddExpense: _addExpense); // sending function as props
+        });
+  }
+```
+
+### LayoutBuilder widget
+
+> LayoutBuilder to build a different widget depending on the available width
+
+```dart
+  @override
+  Widget build(BuildContext context) {
+    final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
+
+    // LayoutBuilder builds a widget tree that can depend on the parent widget's size.
+    return LayoutBuilder(builder: (ctx, constraints) {
+      final maxWidth = constraints.maxWidth;
+
+      return Padding(
+        padding: EdgeInsets.fromLTRB(16, 16, 16, keyboardSpace + 16),
+        child: Column(
+          children: [
+            if (maxWidth >= 600)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _titleController, // method2. onChangeHandler
+                      maxLength: 50,
+                      keyboardType: TextInputType.text,
+                      decoration: const InputDecoration(
+                        label: Text('Title'),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 24,
+                  ),
+                  Expanded(
+                    child: TextField(
+                      controller: _amountController, // onChangeHandler
+                      maxLength: 20,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        prefixText: '\$ ', // $25
+                        label: Text('Amount'),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            else
+              TextField(
+```
+
+### Adaptive Widgets for different Platforms (IOS or Android)
+
+```dart
+import 'dart:io';
+
+if(Platform.isIOS) {
+  // for iOS
+} else {
+  // for Android
+}
+```
