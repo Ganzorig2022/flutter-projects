@@ -1,8 +1,29 @@
+### Folder or File structure
+
+── lib
+│ ├── data (constants data)
+│ │ └── dummy_data.dart
+│ ├── main.dart
+│ ├── models (blueprints or constructor object for creating data)
+│ │ ├── category.dart
+│ │ └── meal.dart
+│ ├── screens (screens or routes)
+│ │ ├── categories.dart
+│ │ └── meals.dart
+│ └── widgets (custom widgets)
+│ └── category_grid_item.dart
+
 ### Importing package
 
 ```dart
 import 'package:flutter/material.dart';
 import 'package:first_app/gradient_container.dart'; // custom widget
+```
+
+### Installing Google Font
+
+```sh
+flutter pub add google_fonts
 ```
 
 ### ASSETS folder
@@ -194,7 +215,7 @@ class QuestionsScreen extends StatefulWidget {
 }
 ```
 
-================================================================
+================================================================ FLUTTER ================================================================
 
 ### TextField (Input element)
 
@@ -331,7 +352,7 @@ void main() {
             ),
 ```
 
-### Looping through list
+### Rendering children of List using Looping through list
 
 `1`. Method 1. Using for in loop
 
@@ -484,3 +505,47 @@ if(Platform.isIOS) {
   // for Android
 }
 ```
+
+### Make items tappable or touchable. InkWell
+
+```dart
+ @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => {},
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+            category.color.withOpacity(0.55),
+            category.color.withOpacity(0.9)
+          ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+        ),
+        child: Text(
+          category.title,
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(color: Theme.of(context).colorScheme.onBackground),
+        ),
+```
+
+### Navigation or Route
+
+```dart
+Navigator.pop(ctx) // closes the navigation
+
+// go to the another page
+void _selectCategory(BuildContext context) {
+  Navigator.of(context).push(MaterialPageRoute(
+      builder: (ctx) => MealsScreen(title: 'Some title', meals: [])));
+}
+
+```
+
+### Tabs based navigation (such as bottom tabs)
+
+> See details: [Tab screen](meals_app/lib/screens/tabs.dart)
+
+`1`. /meals_app/lib/main.dart
+`2`. /meals_app/lib/screens/tabs.dart
