@@ -4,8 +4,10 @@ import 'package:quiz_app/data/questions.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class QuestionsScreen extends StatefulWidget {
-  const QuestionsScreen(
-      {super.key, required this.onSelectAnswer}); // receiving props from parent
+  const QuestionsScreen({
+    super.key,
+    required this.onSelectAnswer,
+  }); // receiving props from parent
 
   final void Function(String answer) onSelectAnswer;
 
