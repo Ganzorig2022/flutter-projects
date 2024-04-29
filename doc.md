@@ -42,7 +42,7 @@ assets:
   - assets/images/dice-6.png
 ```
 
-### Creating custom Widget
+### Creating custom Stateless Widget (custom component)
 
 ```dart
 import 'package:flutter/material.dart'; // must import
@@ -64,7 +64,7 @@ class StyledText extends StatelessWidget {
 
 ```
 
-### Creating Stateful Widget
+### Creating Stateful Widget (custom component)
 
 > [Link](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html?gclid=Cj0KCQiAhc-sBhCEARIsAOVwHuRcjhtSUFqDleKMnTRk1lrXOSUrqxuCIPC0PxzgTztW2R5lFsXGORoaAqBkEALw_wcB&gclsrc=aw.ds)
 
@@ -217,7 +217,7 @@ class QuestionsScreen extends StatefulWidget {
 }
 ```
 
-### Maps in dart (Objects in JavaScript)
+### Maps in dart (=Objects in JavaScript)
 
 `1.` It is like Object in javascript.
 
