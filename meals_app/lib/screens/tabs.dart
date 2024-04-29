@@ -1,8 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/categories.dart';
+import 'package:meals_app/screens/filters.dart';
 import 'package:meals_app/screens/meals.dart';
+import 'package:meals_app/widgets/main_drawer.dart';
+
+const kInitialFilters = {
+  Filter.glutenFree: false,
+  Filter.lactoseFree: false,
+  Filter.veganFree: false,
+  Filter.vegetarianFree: false,
+};
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -17,6 +25,7 @@ class _TabsScreenState extends State<TabsScreen> {
   int _selectedPageIndex = 0;
 
   final List<Meal> _favoriteMeals = [];
+  Map<Filter, bool> _selectedFilters = kInitialFilters;
 
   void _showInfoMessage(String msg) {
     ScaffoldMessenger.of(context).clearSnackBars();
@@ -45,11 +54,27 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
+  void _setScreen(String identifier) async {
+    Navigator.of(context).pop(); // always closes the drawer
+    if (identifier == 'filters') {
+      final result = await Navigator.of(context).push<Map<Filter, bool>>(
+        MaterialPageRoute(
+          builder: (ctx) => const FilterScreen(),
+        ),
+      );
+
+      setState(() {
+        _selectedFilters =
+            result ?? kInitialFilters; // if result is null then kInitialFilters
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget activePage =
         CategoriesScreen(onToggleFavorite: _toggleMealFavoriteStatus);
-    var activePageTitle = 'Categories';
+    var activePageTitle = 'Categories'; // default page
 
     if (_selectedPageIndex == 1) {
       activePage = MealsScreen(
@@ -61,6 +86,9 @@ class _TabsScreenState extends State<TabsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(activePageTitle),
+      ),
+      drawer: MainDrawer(
+        onSelectScreen: _setScreen,
       ),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(

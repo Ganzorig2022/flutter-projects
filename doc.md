@@ -1,5 +1,6 @@
 ### Folder or File structure
 
+```bash
 ── lib
 │ ├── data (constants data)
 │ │ └── dummy_data.dart
@@ -12,8 +13,9 @@
 │ │ └── meals.dart
 │ └── widgets (custom widgets)
 │ └── category_grid_item.dart
+```
 
-### Importing package
+### Importing package/component
 
 ```dart
 import 'package:flutter/material.dart';
@@ -215,11 +217,11 @@ class QuestionsScreen extends StatefulWidget {
 }
 ```
 
-### Maps in dart
+### Maps in dart (Objects in JavaScript)
 
 `1.` It is like Object in javascript.
 
-````dart
+```dart
 import 'package:flutter/material.dart';
 import 'package:quiz_app/data/questions.dart';
 import 'package:quiz_app/questions_summary.dart';
@@ -280,6 +282,9 @@ class ResultScreen extends StatelessWidget {
           ),
         ));
   }
+
+```
+
 ================================================================ FLUTTER ================================================================
 
 ### TextField (Input element)
@@ -302,7 +307,7 @@ class ResultScreen extends StatelessWidget {
               label: Text('Title'),
             ),
           ),
-````
+```
 
 ### Showing Modal
 
@@ -608,8 +613,8 @@ if(Platform.isIOS) {
 ### Navigation or Route
 
 ```dart
-Navigator.pop(ctx) // closes the navigation
-
+Navigator.pop(ctx); //Return to the first route
+Navigator.of(context).pop(); // closes the navigation such as drawer...
 // go to the another page
 void _selectCategory(BuildContext context) {
   Navigator.of(context).push(MaterialPageRoute(
@@ -624,3 +629,47 @@ void _selectCategory(BuildContext context) {
 
 `1`. /meals_app/lib/main.dart
 `2`. /meals_app/lib/screens/tabs.dart
+
+### Adding Side Drawer
+
+> See details: [Drawer](meals_app/lib/widgets/main_drawer.dart)
+
+### PopScope - Returning Data when leaving a screen
+
+> See details: [PopScope](meals_app/lib/screens/filters.dart)
+
+```dart
+<!-- Parent element -->
+
+ void _setScreen(String identifier) async {
+    Navigator.of(context).pop(); // always closes the drawer
+    if (identifier == 'filters') {
+      // receives Map (object) data with type of boolean from FilterScreen
+      final result = await Navigator.of(context).push<Map<Filter, bool>>(
+        MaterialPageRoute(
+          builder: (ctx) => const FilterScreen(),
+        ),
+      );
+      print(result);
+    }
+  }
+
+
+<!-- Child element -->
+ body: PopScope(
+        canPop: false,
+        onPopInvoked: (bool didPop) async {
+          if (didPop) {
+            return;
+          }
+          // sending data to previous screen which is TabScreen
+          Navigator.of(context).pop({
+            Filter.glutenFree: _glutenFreeFilterSet,
+            Filter.lactoseFree: _lactoseFreeFilterSet,
+            Filter.veganFree: _veganFreeFilterSet,
+            Filter.vegetarianFree: _vegetarianFreeFilterSet,
+          });
+        },)
+```
+
+025 Applying filters 04:49
