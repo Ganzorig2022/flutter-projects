@@ -1,3 +1,9 @@
+### Start development
+
+`1.` Connect phone via usb into computer
+`2.` Ctrl+Shift+P for opening "Flutter: Select device"
+`3`. Run and Debug (Ctr+Shift+D)
+
 ### Folder or File structure
 
 ```bash
@@ -672,4 +678,54 @@ void _selectCategory(BuildContext context) {
         },)
 ```
 
-025 Applying filters 04:49
+### Global State Management - Riverpod
+
+##### Engiin data haruulah bol **Provider** class ashiglana.
+
+> Links: [Riverpod Install](https://riverpod.dev/docs/introduction/getting_started)
+
+> See details: [Provider](meals_app/lib/providers/meals_provider.dart)
+
+`1`. Provider file-aa vvsgene.
+`2`. Main.dart file-d Provider-aa App-iin gaduur bvrhene.
+`3.` **StatefulWidget**-iig **ConsumerStatefulWidget**-eer replace hiiw. meals_app/lib/screens/tabs.dart
+
+```dart
+ class TabsScreen extends ConsumerStatefulWidget {
+  const TabsScreen({super.key});
+
+  @override
+  ConsumerState<TabsScreen> createState() {
+    return _TabsScreenState();
+  }
+}
+
+```
+
+##### Complex data haruulah bol. **StateNotfier** class ashiglana.
+
+> See details: [ConsumerWidget](meals_app/lib/screens/filters.dart)
+
+- Provider + Local State + Widget = ConsumerStatefulWidget
+- Provider + Wdiget = ConsumerWidget
+
+> See details: [ConsumerStatefulWidget](meals_app/lib/screens/tabs.dart)
+
+`1.` Tuhain provider dotorh function-iig ajilluulahdaa **trigger** hiihdee '.read()-eer ajilluulna.'
+
+```dart
+ final wasAdded = ref
+                    .read(favoriteMealsProvider.notifier)
+                    .toggleMealFavoriteStatus(meal);
+```
+
+`2.` Tuhain provider-aas oorchlogdson utga awah bol '.watch()'-aar utga variable-d hadgalj awch bolno.
+
+```dart
+  final meals = ref.watch(mealsProvider);
+  final activeFilters = ref.watch(filtersProvider);
+```
+
+08 - Building Multi-Screen Apps & Navigating Between Screens [MEALS APP] - 025 Applying filters 04:49
+
+09 - Managing App-wide State [MEALS APP] - 011 Combining Local & Provider-managed State
