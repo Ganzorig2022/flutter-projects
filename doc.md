@@ -707,7 +707,7 @@ void _selectCategory(BuildContext context) {
 > See details: [ConsumerWidget](meals_app/lib/screens/filters.dart)
 
 - Provider + Local State + Widget = ConsumerStatefulWidget
-- Provider + Wdiget = ConsumerWidget
+- Provider + Widget = ConsumerWidget
 
 > See details: [ConsumerStatefulWidget](meals_app/lib/screens/tabs.dart)
 
