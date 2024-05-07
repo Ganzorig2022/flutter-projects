@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/src/constants/test_products.dart';
 import 'package:ecommerce_app/src/features/products/domain/product.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FakeProductsRepository {
@@ -33,16 +34,26 @@ class FakeProductsRepository {
   }
 }
 
-final productRepositoryProvider = Provider<FakeProductsRepository>((ref) {
+final productRepositoryProvider =
+    Provider.autoDispose<FakeProductsRepository>((ref) {
   return FakeProductsRepository();
 });
 
-final productsListStreamProvider = StreamProvider<List<Product>>((ref) {
+final productsListStreamProvider =
+    StreamProvider.autoDispose<List<Product>>((ref) {
+  debugPrint('Created productsListStreamProvider');
   final productsRepository = ref.watch(productRepositoryProvider);
   return productsRepository.watchProductsList();
 });
 
-final productsListFutureProvider = FutureProvider<List<Product>>((ref) {
+final productsListFutureProvider =
+    FutureProvider.autoDispose<List<Product>>((ref) {
   final productsRepository = ref.watch(productRepositoryProvider);
   return productsRepository.fetchProductsList();
+});
+
+final productProvider =
+    StreamProvider.autoDispose.family<Product?, String>((ref, id) {
+  final productsRepository = ref.watch(productRepositoryProvider);
+  return productsRepository.watchProduct(id);
 });

@@ -93,11 +93,25 @@ How to create providers?
 
 `2.` Tuhain provider-aas oorchlogdson utga awah bol '.watch()'-aar utga variable-d hadgalj awch bolno.
 
+`3.` .autoDispose modifier-aar tuhan provider ashiglagdahgv bolson ved "tsewerleh" uuregtei yum.
+
+`4` .family modifier-aar tuhain provider luu parameter damjuulahad hereglene.
+
+> See details: [autoDispose, family modifier](/ecommerce/lib/src/features/products/data/fake_products_repository.dart)
+
+> AsyncValueWidget-eer async data tatah ved loading, error state-vvdiig handle hiiw: [AsyncValueWidget](/ecommerce/lib/src/common_widgets/async_value_widget.dart)
+
 > ConsumerWidget -> everything in the build method will rebuild if the provider value changes
 > Consumer -> only code inside the builder will rebuild (more fine grained control)
 > If your widgets are small, use ConsumerWidget by default. Only use Consumer when needed.
 
-================================================================================================================================
+> FutureProvider, StreamProvider, AsyncValue, .autoDispose, .family
+
+===============================================================================
+
+### Reactive In-Memory Store with RxDart
+
+===============================================================================
 
 ### Widgets vs Helper Methods
 

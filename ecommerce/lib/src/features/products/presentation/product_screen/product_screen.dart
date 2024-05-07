@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/src/common_widgets/async_value_widget.dart';
 import 'package:ecommerce_app/src/common_widgets/custom_image.dart';
 import 'package:ecommerce_app/src/common_widgets/empty_placeholder_widget.dart';
 import 'package:ecommerce_app/src/common_widgets/responsive_center.dart';
@@ -25,22 +26,23 @@ class ProductScreen extends StatelessWidget {
     return Scaffold(
       appBar: const HomeAppBar(),
       body: Consumer(builder: (context, ref, _) {
-        final productsRepository = ref.watch(productRepositoryProvider);
-        final product = productsRepository.getProduct(productId)!;
-
-        return product == null
-            ? EmptyPlaceholderWidget(
-                message: 'Product not found'.hardcoded,
-              )
-            : CustomScrollView(
-                slivers: [
-                  ResponsiveSliverCenter(
-                    padding: const EdgeInsets.all(Sizes.p16),
-                    child: ProductDetails(product: product),
-                  ),
-                  ProductReviewsList(productId: productId),
-                ],
-              );
+        final productValue = ref.watch(productProvider(productId));
+        return AsyncValueWidget(
+          value: productValue,
+          data: (product) => product == null
+              ? EmptyPlaceholderWidget(
+                  message: 'Product not found'.hardcoded,
+                )
+              : CustomScrollView(
+                  slivers: [
+                    ResponsiveSliverCenter(
+                      padding: const EdgeInsets.all(Sizes.p16),
+                      child: ProductDetails(product: product),
+                    ),
+                    ProductReviewsList(productId: productId),
+                  ],
+                ),
+        );
       }),
     );
   }
