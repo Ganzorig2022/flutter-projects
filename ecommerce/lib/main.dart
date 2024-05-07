@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:ecommerce_app/src/app.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() async {
@@ -11,7 +12,11 @@ void main() async {
 
   // https://docs.flutter.dev/testing/errors
   await runZonedGuarded(() async {
-    runApp(const MyApp());
+    runApp(
+      const ProviderScope(
+        child: MyApp(),
+      ),
+    );
 
 // * This code will present some error UI if any uncaught exception happens
     FlutterError.onError = (FlutterErrorDetails details) {

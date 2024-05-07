@@ -7,34 +7,18 @@
 ![Riverpod Architecture](https://codewithandrea.com/articles/flutter-app-architecture-riverpod-introduction/images/flutter-app-architecture.webp)
 
 `1.` Presentation Layer - '/ecommerce/lib/src/features'. Screens, custom widgets
-`2`. Domain Layer - '/ecommerce/lib/src/models'. Types (entities, interfaces)
-`3`. Domain Layer - '/ecommerce/lib/src
+
+`2.` Application Layer - 'Services
+
+`3`. Domain Layer - '/ecommerce/lib/src/models'. Models
+
+`4`. Data Layer - '/ecommerce/lib/src/features/products/data/fake_products_repository.dart. Repositories, DTOs, Data sources
 
 ### Project Architecture
 
 > Feature-first
 
 ================================================================================================================================
-
-### Custom Widgets
-
-### Widgets vs Helper Methods
-
-> Use separate widgets instead of helper methods
-
-- Calling setState within a widget reruns its entire build method
-- Rendering an icon in a helper method requires rebuilding the entire wrapping widget
-
-### Responsive Custom Widgets
-
-- ResponsiveCenter
-- ResponsiveSliverCenter
-- ResponsiveTwoCloumnLayout
-- ResponsiveScrollableCard
-
-### Localization
-
-> https://codewithandrea.com/articles/flutter-localization-build-context-extension/
 
 ## Navigation - Go Router
 
@@ -83,3 +67,58 @@ onPressed: () => context.goNamed(AppRoute.product.name,
 ```bash
 
 ```
+
+================================================================================================================================
+
+### Global State Management - Riverpod as Dependency Injection System
+
+`1.` ConsumerWidget => StatelessWidget
+`2.` ConsumerStatefulWidget => StatefulWidget
+
+```bash
+# FLutter_riverpod snippets
+#1. Create a new provider
+provider  + tab
+```
+
+How to create providers?
+
+- Declare as a global variable
+- Specify a type annotation
+- Implement the body
+
+> See details: [ConsumerWidget](/ecommerce/lib/src/features/products/presentation/products_list/products_grid.dart)
+
+`1.` Tuhain provider dotorh function-iig ajilluulahdaa (**trigger**) hiihdee '.read()-eer ajilluulna.'
+
+`2.` Tuhain provider-aas oorchlogdson utga awah bol '.watch()'-aar utga variable-d hadgalj awch bolno.
+
+> ConsumerWidget -> everything in the build method will rebuild if the provider value changes
+> Consumer -> only code inside the builder will rebuild (more fine grained control)
+> If your widgets are small, use ConsumerWidget by default. Only use Consumer when needed.
+
+================================================================================================================================
+
+### Widgets vs Helper Methods
+
+> Use separate widgets instead of helper methods
+
+- Calling setState within a widget reruns its entire build method
+- Rendering an icon in a helper method requires rebuilding the entire wrapping widget
+
+### Responsive Custom Widgets
+
+- ResponsiveCenter
+- ResponsiveSliverCenter
+- ResponsiveTwoCloumnLayout
+- ResponsiveScrollableCard
+
+### Localization
+
+> https://codewithandrea.com/articles/flutter-localization-build-context-extension/
+
+#### Future, Streams, Async, Async*, Yield, yield*
+
+> https://medium.com/@siddharthmakadiya/unlocking-the-power-of-yield-yield-async-and-async-in-flutter-588a82f9c445
+
+> https://pro.codewithandrea.com/flutter-foundations/03-app-architecture/04-project-structure
