@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/src/common_widgets/alert_dialogs.dart';
 import 'package:ecommerce_app/src/localization/string_hardcoded.dart';
 import 'package:ecommerce_app/src/models/app_user.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'package:ecommerce_app/src/constants/app_sizes.dart';
 
 /// Simple account screen showing some user info and a logout button.
 class AccountScreen extends StatelessWidget {
-  const AccountScreen({Key? key}) : super(key: key);
+  const AccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +19,17 @@ class AccountScreen extends StatelessWidget {
           ActionTextButton(
             text: 'Logout'.hardcoded,
             onPressed: () async {
-              // TODO: Sign out
-              Navigator.of(context).pop();
+              final logout = await showAlertDialog(
+                context: context,
+                title: 'Are you sure'.hardcoded,
+                content: 'Logout'.hardcoded,
+                defaultActionText: 'Logout'.hardcoded,
+              );
+
+              if (logout == true) {
+                // TODO: Sign out
+                Navigator.of(context).pop();
+              }
             },
           ),
         ],
@@ -34,11 +44,11 @@ class AccountScreen extends StatelessWidget {
 
 /// Simple user data table showing the uid and email
 class UserDataTable extends StatelessWidget {
-  const UserDataTable({Key? key}) : super(key: key);
+  const UserDataTable({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final style = Theme.of(context).textTheme.subtitle2!;
+    final style = Theme.of(context).textTheme.titleSmall!;
     // TODO: get user from auth repository
     const user = AppUser(uid: '123', email: 'test@test.com');
     return DataTable(

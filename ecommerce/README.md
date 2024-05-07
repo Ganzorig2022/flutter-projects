@@ -1,16 +1,9 @@
-# Flutter eCommerce App
+## Flutter eCommerce App
 
-This is the official Flutter Project for this course:
+`1`. Project curriculum
 
-- [Complete Flutter Course Bundle](https://codewithandrea.com/courses/complete-flutter-bundle/)
+> https://pro.codewithandrea.com/flutter-foundations/01-intro/06-starter-project-pubspec.yaml
 
-This will include a full-stack eCommerce app using Flutter & Firebase:
+`2.` VSCode extensions
 
-![eCommerce App Preview](/.github/images/ecommerce-app-preview.png)
-
-A Flutter web preview of the app can be found here:
-
-- [Flutter Web Demo](https://my-shop-ecommerce-stg.web.app/)
-
-
-### [LICENSE: MIT](../LICENSE.md)
+> https://codewithandrea.com/articles/vscode-shortcuts-extensions-settings-flutter-development/

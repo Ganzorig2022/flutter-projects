@@ -7,7 +7,7 @@ import 'package:ecommerce_app/src/models/order.dart';
 
 /// Shows the list of orders placed by the signed-in user.
 class OrdersListScreen extends StatelessWidget {
-  const OrdersListScreen({Key? key}) : super(key: key);
+  const OrdersListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class OrdersListScreen extends StatelessWidget {
           ? Center(
               child: Text(
                 'No previous orders'.hardcoded,
-                style: Theme.of(context).textTheme.headline3,
+                style: Theme.of(context).textTheme.displaySmall,
                 textAlign: TextAlign.center,
               ),
             )
