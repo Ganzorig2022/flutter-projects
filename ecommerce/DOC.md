@@ -8,6 +8,10 @@
 
 `1.` Presentation Layer - '/ecommerce/lib/src/features'. Screens, custom widgets
 
+- Widgets ⬇️
+- States ⬇️
+- Controllers ⬇️ . see example details: [Controllers](/ecommerce//lib/src/features/authentication/presentation/sign_in/email_password_sign_in_controller.dart)
+
 `2.` Application Layer - 'Services
 
 `3`. Domain Layer - '/ecommerce/lib/src/models'. Models
@@ -68,7 +72,7 @@ onPressed: () => context.goNamed(AppRoute.product.name,
 
 ```
 
-================================================================================================================================
+===============================================================================
 
 ### Global State Management - Riverpod as Dependency Injection System
 
@@ -87,25 +91,43 @@ How to create providers?
 - Specify a type annotation
 - Implement the body
 
+How to convert Stateless/StatefulWidget?
+
+ - Stateless --> ConsumerWidget
+ - StatefulWidget --> ConsumerStatefulWidget
+            State --> ConsumerState
+
+
 > See details: [ConsumerWidget](/ecommerce/lib/src/features/products/presentation/products_list/products_grid.dart)
 
-`1.` Tuhain provider dotorh function-iig ajilluulahdaa (**trigger**) hiihdee '.read()-eer ajilluulna.'
+`1.` Tuhain provider dotorh function-iig ajilluulahdaa (trigger) hiihdee **ref.read()**-eer ajilluulna.'
 
-`2.` Tuhain provider-aas oorchlogdson utga awah bol '.watch()'-aar utga variable-d hadgalj awch bolno.
+`2.` Tuhain provider-aas oorchlogdson utga awah bol **ref.watch()**-aar utga variable-d hadgalj awch bolno.
 
-`3.` .autoDispose modifier-aar tuhan provider ashiglagdahgv bolson ved "tsewerleh" uuregtei yum.
+`3.` **.autoDispose** modifier-aar tuhan provider ashiglagdahgv bolson ved "tsewerleh" uuregtei yum.
 
-`4` .family modifier-aar tuhain provider luu parameter damjuulahad hereglene.
+`4` **.family** modifier-aar tuhain provider luu parameter damjuulahad hereglene.
 
 > See details: [autoDispose, family modifier](/ecommerce/lib/src/features/products/data/fake_products_repository.dart)
+
+`5.` **ref.listen()** - is good for running shome code in response to state changes
+
+> See details: [ref.listen()](/ecommerce/lib/src/features/authentication/presentation/account/account_screen.dart)
+
+`6.` **AsyncValue.guard** - asyncValue-iig safely handle hiihed, try catch-iin orond hereglej bolno.
+
+> See details: [AsyncValue.guard](/ecommerce/lib/src/features/authentication/presentation/account/account_screen_controller.dart)
 
 > AsyncValueWidget-eer async data tatah ved loading, error state-vvdiig handle hiiw: [AsyncValueWidget](/ecommerce/lib/src/common_widgets/async_value_widget.dart)
 
 > ConsumerWidget -> everything in the build method will rebuild if the provider value changes
 > Consumer -> only code inside the builder will rebuild (more fine grained control)
 > If your widgets are small, use ConsumerWidget by default. Only use Consumer when needed.
-
 > FutureProvider, StreamProvider, AsyncValue, .autoDispose, .family
+
+===============================================================================
+
+### How to generate immutable state classes in Dart
 
 ===============================================================================
 

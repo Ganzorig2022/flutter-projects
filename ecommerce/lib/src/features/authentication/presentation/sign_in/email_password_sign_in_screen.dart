@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/src/features/authentication/presentation/sign_in/email_password_sign_in_controller.dart';
 import 'package:ecommerce_app/src/features/authentication/presentation/sign_in/email_password_sign_in_state.dart';
 import 'package:ecommerce_app/src/features/authentication/presentation/sign_in/string_validators.dart';
 import 'package:ecommerce_app/src/localization/string_hardcoded.dart';
@@ -7,6 +8,7 @@ import 'package:ecommerce_app/src/common_widgets/custom_text_button.dart';
 import 'package:ecommerce_app/src/common_widgets/primary_button.dart';
 import 'package:ecommerce_app/src/common_widgets/responsive_scrollable_card.dart';
 import 'package:ecommerce_app/src/constants/app_sizes.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 /// Email & password sign in screen.
@@ -14,6 +16,7 @@ import 'package:go_router/go_router.dart';
 /// [AppBar] with a title.
 class EmailPasswordSignInScreen extends StatelessWidget {
   const EmailPasswordSignInScreen({super.key, required this.formType});
+
   final EmailPasswordSignInFormType formType;
 
   // * Keys for testing using find.byKey()
@@ -35,7 +38,7 @@ class EmailPasswordSignInScreen extends StatelessWidget {
 /// A widget for email & password authentication, supporting the following:
 /// - sign in
 /// - register (create an account)
-class EmailPasswordSignInContents extends StatefulWidget {
+class EmailPasswordSignInContents extends ConsumerStatefulWidget {
   const EmailPasswordSignInContents({
     super.key,
     this.onSignedIn,
@@ -44,14 +47,16 @@ class EmailPasswordSignInContents extends StatefulWidget {
   final VoidCallback? onSignedIn;
 
   /// The default form type to use.
-  final EmailPasswordSignInFormType formType;
+  final EmailPasswordSignInFormType
+      formType; // can accessible like widget.formType
+
   @override
-  State<EmailPasswordSignInContents> createState() =>
+  ConsumerState<EmailPasswordSignInContents> createState() =>
       _EmailPasswordSignInContentsState();
 }
 
 class _EmailPasswordSignInContentsState
-    extends State<EmailPasswordSignInContents> {
+    extends ConsumerState<EmailPasswordSignInContents> {
   final _formKey = GlobalKey<FormState>();
   final _node = FocusScopeNode();
   final _emailController = TextEditingController();
@@ -66,8 +71,9 @@ class _EmailPasswordSignInContentsState
   // https://codewithandrea.com/articles/flutter-text-field-form-validation/
   var _submitted = false;
   // local variable representing the form type and loading state
-  late var _state =
-      EmailPasswordSignInState(formType: widget.formType, isLoading: false);
+  late var _state = EmailPasswordSignInState(
+    formType: widget.formType,
+  );
 
   @override
   void dispose() {
@@ -82,8 +88,14 @@ class _EmailPasswordSignInContentsState
     setState(() => _submitted = true);
     // only submit the form if validation passes
     if (_formKey.currentState!.validate()) {
-      // TODO: Authentication logic
-      widget.onSignedIn?.call();
+      final controller = ref.read(
+          emailPasswordSignInControllerProvider(widget.formType).notifier);
+
+      final success = await controller.submit(email, password);
+
+      if (success) {
+        widget.onSignedIn?.call();
+      }
     }
   }
 

@@ -21,7 +21,11 @@ class FakeAuthRepository {
   Future<void> createUserWithEmailAndPassword(
       String email, String password) async {}
 
-  Future<void> signOut(String email, String password) async {}
+  Future<void> signOut() async {
+    // await Future.delayed(const Duration(seconds: 3));
+    // throw Exception('Cannot sign out');
+    _authState.value = null;
+  }
 }
 
 final authRepositoryProvider = Provider<FakeAuthRepository>(
