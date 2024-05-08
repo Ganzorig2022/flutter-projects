@@ -13,24 +13,39 @@ class FakeAuthRepository {
   AppUser? get currentUser => null;
 
   Future<void> signInWithEmailAndPassword(String email, String password) async {
+    await Future.delayed(const Duration(seconds: 3));
     if (currentUser == null) {
-      _authState.value = AppUser(uid: uuid.v4(), email: '');
+      _createNewUser(email);
     }
   }
 
   Future<void> createUserWithEmailAndPassword(
-      String email, String password) async {}
+      String email, String password) async {
+    if (currentUser == null) {
+      _createNewUser(email);
+    }
+  }
 
   Future<void> signOut() async {
-    // await Future.delayed(const Duration(seconds: 3));
-    // throw Exception('Cannot sign out');
+    await Future.delayed(const Duration(seconds: 3));
     _authState.value = null;
+  }
+
+  void dispose() => _authState.close();
+
+  void _createNewUser(String email) {
+    _authState.value = AppUser(
+      uid: email.split('').reversed.join(),
+      email: email,
+    );
   }
 }
 
 final authRepositoryProvider = Provider<FakeAuthRepository>(
   (ref) {
-    return FakeAuthRepository();
+    final auth = FakeAuthRepository();
+    ref.onDispose(() => auth.dispose());
+    return auth;
   },
 );
 
