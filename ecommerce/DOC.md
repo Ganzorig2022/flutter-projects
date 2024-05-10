@@ -76,6 +76,8 @@ onPressed: () => context.goNamed(AppRoute.product.name,
 
 ### Global State Management - Riverpod as Dependency Injection System
 
+> https://codewithandrea.com/articles/flutter-state-management-riverpod/
+
 `1.` ConsumerWidget => StatelessWidget
 `2.` ConsumerStatefulWidget => StatefulWidget
 
@@ -104,7 +106,7 @@ How to convert Stateless/StatefulWidget?
 
 `2.` Tuhain provider-aas oorchlogdson utga awah bol **ref.watch()**-aar utga variable-d hadgalj awch bolno.
 
-`3.` **.autoDispose** modifier-aar tuhan provider ashiglagdahgv bolson ved "tsewerleh" uuregtei yum.
+`3.` **.autoDispose** modifier-aar tuhan provider ashiglagdahgv bolson ved "tsewerleh = clean" uuregtei yum.
 
 `4` **.family** modifier-aar tuhain provider luu parameter damjuulahad hereglene.
 
@@ -124,6 +126,10 @@ How to convert Stateless/StatefulWidget?
 > Consumer -> only code inside the builder will rebuild (more fine grained control)
 > If your widgets are small, use ConsumerWidget by default. Only use Consumer when needed.
 > FutureProvider, StreamProvider, AsyncValue, .autoDispose, .family
+
+`7.` Riverpod Generator
+
+> https://pub.dev/packages/riverpod_generator
 
 ===============================================================================
 
