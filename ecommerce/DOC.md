@@ -12,7 +12,7 @@
 - States ⬇️
 - Controllers ⬇️ . see example details: [Controllers](/ecommerce//lib/src/features/authentication/presentation/sign_in/email_password_sign_in_controller.dart)
 
-`2.` Application Layer - 'Services
+`2.` Application Layer - Services
 
 `3`. Domain Layer - '/ecommerce/lib/src/models'. Models
 
@@ -64,7 +64,7 @@ onPressed: () => context.goNamed(AppRoute.product.name,
 #### How to quickly get familiar with a new codebase?
 
 `1.` Go through all the files
-`2.` or using Widget Instpector DevTools
+`2.` or using Widget Inspector DevTools
 
 ### Folder or File structure
 
