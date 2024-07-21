@@ -1,9 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shopping_list/grocery_list.dart';
+import 'package:flutter/services.dart';
+import 'package:shopping_list/screens/grocery.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((fn) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -13,15 +15,28 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Groceries',
-        theme: ThemeData.dark().copyWith(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 147, 229, 250),
-            brightness: Brightness.dark,
-            surface: const Color.fromARGB(255, 42, 51, 59),
-          ),
-          scaffoldBackgroundColor: const Color.fromARGB(255, 50, 58, 60),
+      title: 'Flutter Groceries',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light().copyWith(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xffFFDDB3),
+          surface: const Color(0xfffffbf5),
         ),
-        home: const GroceryList());
+        textTheme: Theme.of(context).textTheme.apply(
+              bodyColor: Colors.black,
+              displayColor: Colors.black,
+            ),
+        scaffoldBackgroundColor: const Color(0xfffffbf5),
+        appBarTheme: const AppBarTheme(
+          centerTitle: false,
+          surfaceTintColor: Colors.transparent,
+        ),
+        splashFactory: NoSplash.splashFactory,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+      ),
+      home: const GroceryScreen(),
+    );
   }
 }
