@@ -12,7 +12,7 @@
 - States ⬇️
 - Controllers ⬇️ . see example details: [Controllers](/ecommerce//lib/src/features/authentication/presentation/sign_in/email_password_sign_in_controller.dart)
 
-`2.` Application Layer - 'Services
+`2.` Application Layer - Services
 
 `3`. Domain Layer - '/ecommerce/lib/src/models'. Models
 
@@ -64,7 +64,7 @@ onPressed: () => context.goNamed(AppRoute.product.name,
 #### How to quickly get familiar with a new codebase?
 
 `1.` Go through all the files
-`2.` or using Widget Instpector DevTools
+`2.` or using Widget Inspector DevTools
 
 ### Folder or File structure
 
@@ -75,6 +75,8 @@ onPressed: () => context.goNamed(AppRoute.product.name,
 ===============================================================================
 
 ### Global State Management - Riverpod as Dependency Injection System
+
+> https://codewithandrea.com/articles/flutter-state-management-riverpod/
 
 `1.` ConsumerWidget => StatelessWidget
 `2.` ConsumerStatefulWidget => StatefulWidget
@@ -104,7 +106,7 @@ How to convert Stateless/StatefulWidget?
 
 `2.` Tuhain provider-aas oorchlogdson utga awah bol **ref.watch()**-aar utga variable-d hadgalj awch bolno.
 
-`3.` **.autoDispose** modifier-aar tuhan provider ashiglagdahgv bolson ved "tsewerleh" uuregtei yum.
+`3.` **.autoDispose** modifier-aar tuhan provider ashiglagdahgv bolson ved "tsewerleh = clean" uuregtei yum.
 
 `4` **.family** modifier-aar tuhain provider luu parameter damjuulahad hereglene.
 
@@ -124,6 +126,10 @@ How to convert Stateless/StatefulWidget?
 > Consumer -> only code inside the builder will rebuild (more fine grained control)
 > If your widgets are small, use ConsumerWidget by default. Only use Consumer when needed.
 > FutureProvider, StreamProvider, AsyncValue, .autoDispose, .family
+
+`7.` Riverpod Generator
+
+> https://pub.dev/packages/riverpod_generator
 
 ===============================================================================
 
